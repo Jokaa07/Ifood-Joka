@@ -1,0 +1,238 @@
+<html><head><base href="https://ifood-clone.example.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFood Clone - Peça sua comida favorita online</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+      }
+      header {
+        background-color: #ea1d2c;
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .search-bar {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+      }
+      .search-bar input {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+      }
+      .search-bar button {
+        padding: 10px 20px;
+        background-color: #ea1d2c;
+        color: white;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+      }
+      .categories {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+      }
+      .category {
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      .category:hover {
+        transform: scale(1.1);
+      }
+      .category img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+      .restaurants {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .restaurant {
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+      }
+      .restaurant:hover {
+        transform: translateY(-5px);
+      }
+      .restaurant img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .restaurant-info {
+        padding: 15px;
+      }
+      .restaurant-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .restaurant-rating {
+        color: #ffb800;
+        margin-bottom: 5px;
+      }
+      .restaurant-delivery {
+        color: #666;
+        font-size: 14px;
+      }
+    </style>
+    </head>
+    <body>
+      <header>
+        <div class="container">
+          <div class="logo">iFood Clone</div>
+        </div>
+      </header>
+      
+      <main class="container">
+        <div class="search-bar">
+          <input type="text" placeholder="Busque por item ou loja">
+          <button>Buscar</button>
+        </div>
+        
+        <div class="categories">
+          <div class="category">
+            <img src="https://page-images.websim.ai/%C3%8Dcone%20de%20hamb%C3%BArguer_60x60xvmwAAzzKX0itsFlbex1afd7c8b41776.jpg" alt="Ícone de hambúrguer" width="60" height="60">
+            <p>Lanches</p>
+          </div>
+          <div class="category">
+            <img src="https://page-images.websim.ai/%C3%8Dcone%20de%20pizza_60x60xvmwAAzzKX0itsFlbex4b179b3b52005.jpg" alt="Ícone de pizza" width="60" height="60">
+            <p>Pizza</p>
+          </div>
+          <div class="category">
+            <img src="https://page-images.websim.ai/%C3%8Dcone%20de%20prato%20t%C3%ADpico%20brasileiro_60x60xvmwAAzzKX0itsFlbexc2b347684ec37.jpg" alt="Ícone de prato típico brasileiro" width="60" height="60">
+            <p>Brasileira</p>
+          </div>
+          <div class="category">
+            <img src="https://page-images.websim.ai/%C3%8Dcone%20de%20sushi_60x60xvmwAAzzKX0itsFlbex5f15baa6c9835.jpg" alt="Ícone de sushi" width="60" height="60">
+            <p>Japonesa</p>
+          </div>
+        </div>
+        
+        <div class="restaurants" id="restaurantList">
+    
+        </div>
+      </main>
+    
+      <script>
+        const restaurants = [
+          {
+            name: "Burger King",
+            image: "https://replicate.delivery/yhqm/ClYZ7Zc4f7UQZSAtkrWvfS5CIOVrmn7n0XmzfFQ6Lij9z92mA/out-0.webp",
+            rating: 4.5,
+            deliveryTime: "30-45 min"
+          },
+          {
+            name: "Pizzaria Domino's",
+            image: "https://replicate.delivery/yhqm/b7sml3qBvrYAOxNWaxaEPwNf1UYxcGpCZ1BVkZJlDOp9WvtJA/out-0.webp",
+            rating: 4.3,
+            deliveryTime: "40-55 min"
+          },
+          {
+            name: "Restaurante do Zé",
+            image: "https://replicate.delivery/yhqm/4ef6dZgBLgv7b0VfoDgVhUJ64gPZXUgmQQpI0xk3fjzU36tNB/out-0.webp",
+            rating: 4.7,
+            deliveryTime: "25-40 min"
+          },
+          {
+            name: "Sushi Express",
+            image: "https://replicate.delivery/yhqm/OflrgHrdznRsMyQ5rfsLEDNZs4d17gQd8IrxWRM9yXN3te2mA/out-0.webp",
+            rating: 4.6,
+            deliveryTime: "35-50 min"
+          }
+        ];
+    
+        function displayRestaurants() {
+          const restaurantList = document.getElementById('restaurantList');
+          restaurants.forEach(restaurant => {
+            const restaurantElement = document.createElement('div');
+            restaurantElement.className = 'restaurant';
+            restaurantElement.innerHTML = `
+              <img src="${restaurant.image}" alt="${restaurant.name}" width="250" height="150">
+              <div class="restaurant-info">
+                <div class="restaurant-name">${restaurant.name}</div>
+                <div class="restaurant-rating">★ ${restaurant.rating}</div>
+                <div class="restaurant-delivery">${restaurant.deliveryTime}</div>
+              </div>
+            `;
+            restaurantList.appendChild(restaurantElement);
+          });
+        }
+    
+        document.addEventListener('DOMContentLoaded', displayRestaurants);
+    
+        // Add interactivity to search bar
+        const searchBar = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+    
+        searchButton.addEventListener('click', performSearch);
+        searchBar.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            performSearch();
+          }
+        });
+    
+        function performSearch() {
+          const searchTerm = searchBar.value.toLowerCase();
+          const filteredRestaurants = restaurants.filter(restaurant => 
+            restaurant.name.toLowerCase().includes(searchTerm)
+          );
+          
+          const restaurantList = document.getElementById('restaurantList');
+          restaurantList.innerHTML = '';
+          
+          if (filteredRestaurants.length === 0) {
+            restaurantList.innerHTML = '<p>Nenhum restaurante encontrado.</p>';
+          } else {
+            filteredRestaurants.forEach(restaurant => {
+              const restaurantElement = document.createElement('div');
+              restaurantElement.className = 'restaurant';
+              restaurantElement.innerHTML = `
+                <img src="${restaurant.image}" alt="${restaurant.name}" width="250" height="150">
+                <div class="restaurant-info">
+                  <div class="restaurant-name">${restaurant.name}</div>
+                  <div class="restaurant-rating">★ ${restaurant.rating}</div>
+                  <div class="restaurant-delivery">${restaurant.deliveryTime}</div>
+                </div>
+              `;
+              restaurantList.appendChild(restaurantElement);
+            });
+          }
+        }
+    
+        // Add interactivity to categories
+        const categories = document.querySelectorAll('.category');
+        categories.forEach(category => {
+          category.addEventListener('click', function() {
+            const categoryName = this.querySelector('p').textContent;
+            alert(`Você selecionou a categoria: ${categoryName}`);
+            // Here you could filter restaurants by category
+          });
+        });
+      </script>
+    </body>
+    </html>
